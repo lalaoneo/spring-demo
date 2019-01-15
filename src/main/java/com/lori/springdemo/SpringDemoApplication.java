@@ -17,6 +17,7 @@ public class SpringDemoApplication {
 
 		String line = scanner.nextLine();
 
+		// 只能解析一次输入,第一次输入的不是quit,后面再输入quit将会无效
 		if ("quit".equals(line)){
 			System.exit(1);
 		}
