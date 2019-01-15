@@ -6,6 +6,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 @Component
 public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean, DisposableBean {
 
@@ -20,7 +23,7 @@ public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean
     private String beanName;
 
     public Person(){
-        System.out.println("[lori]【构造器】调用Person的构造器实例化");
+        System.out.println("[lori：step_11]【构造器】调用Person的构造器实例化");
     }
 
     /**
@@ -30,7 +33,7 @@ public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean
      */
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        System.out .println("[lori]【BeanFactoryAware接口】调用BeanFactoryAware.setBeanFactory()");
+        System.out .println("[lori：step_16]【BeanFactoryAware接口】调用BeanFactoryAware.setBeanFactory()");
         this.beanFactory = beanFactory;
     }
 
@@ -40,7 +43,7 @@ public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean
      */
     @Override
     public void setBeanName(String s) {
-        System.out.println("[lori]【BeanNameAware接口】调用BeanNameAware.setBeanName()");
+        System.out.println("[lori：step_15]【BeanNameAware接口】调用BeanNameAware.setBeanName()");
         this.beanName = s;
     }
 
@@ -50,7 +53,7 @@ public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("[lori]【InitializingBean接口】调用InitializingBean.afterPropertiesSet()");
+        System.out.println("[lori：step_18]【InitializingBean接口】调用InitializingBean.afterPropertiesSet()");
     }
 
     /**
@@ -59,15 +62,19 @@ public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean
      */
     @Override
     public void destroy() throws Exception {
-        System.out.println("[lori]【DiposibleBean接口】调用DiposibleBean.destory()");
+        System.out.println("[lori：step_19]【DiposibleBean接口】调用DiposibleBean.destory()");
     }
 
+    // 初始化完bean后，执行指定的初始化方法 相当于xml的init-method
+    @PostConstruct
     public void myInit(){
-        System.out.println("[lori]【init-method】调用的init-method属性指定的初始化方法");
+        System.out.println("[lori：step_17]【init-method】调用的init-method属性指定的初始化方法");
     }
 
+    // 相当于xml的destory-method
+    @PreDestroy
     public void myDestory(){
-        System.out.println("[lori]【destroy-method】调用的destroy-method属性指定的初始化方法");
+        System.out.println("[lori：step_18]【destroy-method】调用的destroy-method属性指定的初始化方法");
     }
 
     public String getName() {
@@ -75,7 +82,7 @@ public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean
     }
 
     public void setName(String name) {
-        System.out.println("[lori]【注入属性】注入属性name");
+        System.out.println("[lori：step_12]【注入属性】注入属性name");
         this.name = name;
     }
 
@@ -84,7 +91,7 @@ public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean
     }
 
     public void setAddress(String address) {
-        System.out.println("[lori]【注入属性】注入属性address");
+        System.out.println("[lori：step_13]【注入属性】注入属性address");
         this.address = address;
     }
 
@@ -93,7 +100,7 @@ public class Person implements BeanFactoryAware, BeanNameAware, InitializingBean
     }
 
     public void setPhone(int phone) {
-        System.out.println("[lori]【注入属性】注入属性phone");
+        System.out.println("[lori：step_14]【注入属性】注入属性phone");
         this.phone = phone;
     }
 
